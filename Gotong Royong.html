@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gotong Royong</title>
+<style>
+:root{--bg:#fff7ec;--fg:#2b2118;--card:#fff;--bd:#e6d5bd;--ac:#e8590c;--ok:#2f9e44;--no:#e03131;--zk:#6741d9;--ch:#1c7ed6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1612;--fg:#f4ead9;--card:#2a221b;--bd:#4a3d2f}}
+:root[data-theme="dark"]{--bg:#1b1612;--fg:#f4ead9;--card:#2a221b;--bd:#4a3d2f}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{text-align:center;padding:22px 12px 8px}
+.bar{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin:14px 0}
+.pill{background:var(--card);border:1px solid var(--bd);border-radius:99px;padding:6px 14px;font-weight:600}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:10px 16px;background:var(--ac);color:#fff;font-weight:600}
+button:active{transform:scale(.96)}
+button.sec{background:var(--card);color:var(--fg);border:1px solid var(--bd)}
+#grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:620px;margin:6px auto 0;padding:16px 16px 40px}
+.box{--c:#ff9f1c;aspect-ratio:1;position:relative;display:grid;place-items:center;font-size:clamp(1.2rem,4.5vw,1.9rem);font-weight:700;color:#2b2118;background:#fff;border:6px solid var(--c);border-radius:16px;box-shadow:0 0 0 3px #3a2a1e,inset 0 0 0 3px #3a2a1e,0 6px 0 3px rgba(58,42,30,.35);animation:in .4s both;padding:0;overflow:hidden}
+.box[data-c="1"]{--c:#ffd93b}.box[data-c="2"]{--c:#6bcb4a}.box[data-c="3"]{--c:#4fc3f7}.box[data-c="4"]{--c:#c45bdc}
+.box::after{content:"";position:absolute;right:0;bottom:0;width:24%;height:24%;background:linear-gradient(135deg,transparent 50%,#c9c9c9 50%);border-radius:0 0 6px 0}
+.box:hover{transform:translateY(-4px) rotate(-2deg)}
+.box.done{--c:var(--bd);background:var(--card);color:var(--fg);box-shadow:none;border-style:dashed;font-size:2rem;opacity:.9}
+.box.done::after{display:none}
+.box.ok{--c:var(--ok)}.box.no{--c:var(--no)}.box.zk{--c:var(--zk)}.box.ch{--c:var(--ch)}
+h1{margin:0;font-size:clamp(1.8rem,7vw,3rem);font-weight:900;color:#fff;-webkit-text-stroke:7px #5a2d0c;paint-order:stroke fill;letter-spacing:1px;text-shadow:0 5px 0 #5a2d0c}
+.bunt{height:54px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='54'%3E%3Cpath d='M0 3H150' stroke='%238a5a2b' stroke-width='3'/%3E%3Cpolygon points='8,3 42,3 25,40' fill='%23ffb84d'/%3E%3Cpolygon points='55,3 89,3 72,42' fill='%2370c1ff'/%3E%3Cpolygon points='102,3 136,3 119,40' fill='%23ff8fc4'/%3E%3C/svg%3E") repeat-x;background-size:150px 54px}
+body{background:linear-gradient(#f8e3a0,#f3cf97) fixed}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body{background:linear-gradient(#3b2d1c,#2a1f14) fixed}}
+:root[data-theme="dark"] body{background:linear-gradient(#3b2d1c,#2a1f14) fixed}
+#bg{position:fixed;inset:-20px;z-index:-1;filter:blur(7px);pointer-events:none}
+#bg svg{width:100%;height:100%;display:block}
+#bg::after{content:"";position:absolute;inset:0;background:rgba(255,246,224,.38)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #bg::after{background:rgba(18,10,28,.62)}}
+:root[data-theme="dark"] #bg::after{background:rgba(18,10,28,.62)}
+@keyframes in{from{transform:scale(.4);opacity:0}}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:14px;z-index:20}
+#ov.on{display:flex}
+#md{background:var(--card);border-radius:18px;max-width:680px;width:100%;max-height:92vh;overflow:auto;padding:22px;animation:pop .35s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.tag{display:inline-block;font-size:.85rem;font-weight:700;color:#fff;border-radius:99px;padding:4px 14px}
+.ring{position:relative;width:72px;height:72px;flex:none}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:1.4rem}
+.qemo{text-align:center;font-size:3.2rem;line-height:1;margin:2px 0 10px;animation:bob 1.6s ease-in-out infinite}
+.q{line-height:1.55;margin:0 0 14px}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;background:var(--bg);color:var(--fg);border:2px solid var(--bd)}
+.opt:hover:not(:disabled){border-color:var(--ac)}
+.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.opt.no{background:var(--no);color:#fff;border-color:var(--no)}
+.hero{text-align:center;padding:6px 0}
+.emo{font-size:clamp(4.5rem,22vw,7.5rem);line-height:1.1;display:inline-block;animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(5deg)}}
+.zk .emo{animation:shake .5s infinite}
+@keyframes shake{25%{transform:rotate(-12deg) scale(1.1)}75%{transform:rotate(12deg) scale(1.1)}}
+.big{font-size:1.3rem;font-weight:700;margin:8px 0 16px}
+.zt{font-size:clamp(1.8rem,7vw,2.4rem);font-weight:900;color:var(--zk);margin:0;line-height:1.1}
+.fb{font-weight:700;margin:12px 0}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#fin{display:none;max-width:560px;margin:0 auto 10px;background:var(--ok);color:#fff;border-radius:14px;padding:12px;font-weight:700}
+</style></head><body>
+<div id="bg"><svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#fff0b8"/></linearGradient><g id="p"><circle cx="0" cy="-34" r="9" fill="#f1c27d"/><rect x="-9" y="-24" width="18" height="30" rx="6" fill="currentColor"/><rect x="-8" y="6" width="6" height="22" fill="#3a2a1e"/><rect x="2" y="6" width="6" height="22" fill="#3a2a1e"/></g><g id="t"><rect x="-6" y="0" width="12" height="50" fill="#7a4a24"/><circle cx="0" cy="-8" r="38" fill="#3f9e4d"/><circle cx="-22" cy="12" r="26" fill="#4fb35c"/><circle cx="22" cy="12" r="26" fill="#4fb35c"/></g></defs>
+<rect width="800" height="600" fill="url(#sk)"/><circle cx="660" cy="105" r="55" fill="#ffd54a"/>
+<ellipse cx="150" cy="95" rx="70" ry="22" fill="#fff"/><ellipse cx="195" cy="80" rx="45" ry="20" fill="#fff"/><ellipse cx="430" cy="140" rx="60" ry="18" fill="#fff"/>
+<path d="M0 330Q200 230 400 320T800 290V600H0Z" fill="#8fd18a"/><path d="M0 400Q250 330 500 390T800 370V600H0Z" fill="#5fb760"/>
+<rect x="60" y="340" width="130" height="85" fill="#f2c48d"/><polygon points="45,342 125,275 205,342" fill="#c0562b"/><rect x="105" y="375" width="30" height="50" fill="#7a4a24"/>
+<rect x="590" y="330" width="150" height="95" fill="#f7d9a8"/><polygon points="572,333 665,262 758,333" fill="#b94a2a"/><rect x="640" y="375" width="34" height="50" fill="#7a4a24"/>
+<use href="#t" x="270" y="330"/><use href="#t" x="510" y="345"/><use href="#t" x="20" y="400"/>
+<path d="M0 520Q300 440 800 500V600H0Z" fill="#e8c88f"/>
+<rect x="170" y="478" width="330" height="13" rx="6" fill="#8a5a2b"/>
+<use href="#p" x="210" y="525" style="color:#e8590c"/><use href="#p" x="280" y="525" style="color:#2f9e44"/><use href="#p" x="350" y="525" style="color:#1c7ed6"/><use href="#p" x="420" y="525" style="color:#e64980"/><use href="#p" x="470" y="525" style="color:#7048e8"/></svg></div><div class="bunt"></div><header><h1>🤝 GOTONG ROYONG 🤝</h1>
+<div class="bar"><span class="pill">⭐ Skor: <span id="sc">0</span></span><span class="pill">📦 <span id="op">0</span>/35</span><button class="sec" id="mu">🔊 Suara</button><button class="sec" id="rs">🔄 Ulang</button></div>
+<div id="fin"></div></header>
+<div id="grid"></div>
+<div id="ov"><div id="md"></div></div>
+<script>
+const $=s=>document.querySelector(s);
+const QS=[["q","Pak Budi bertanya kepada anaknya tentang asal kata “gotong royong”. Anaknya menjelaskan bahwa secara etimologi, “gotong” berarti memikul atau mengangkat bersama-sama, sedangkan “royong” berarti bersama-sama. Berdasarkan asal katanya tersebut, pengertian gotong royong menurut istilah yang paling tepat adalah ...",["Persaingan antarwarga untuk menyelesaikan pekerjaan dengan cepat","Pekerjaan yang dilakukan oleh pemerintah demi kepentingan umum","Pekerjaan yang dilakukan secara individu untuk mendapat imbalan","Kegiatan sosial yang hanya dilakukan oleh kelompok tertentu","Bekerja bersama-sama secara sukarela dan tanpa pamrih untuk mencapai tujuan bersama"],4],
+["q","Dalam pidatonya pada sidang BPUPKI tanggal 1 Juni 1945, Ir. Soekarno menjelaskan bahwa lima sila dapat diperas menjadi tiga sila (Trisila), lalu diperas lagi menjadi satu sila saja yang disebut Ekasila. Inti dari Ekasila tersebut adalah ...",["Ketuhanan","Kemanusiaan","Musyawarah","Gotong royong","Keadilan"],3],
+["q","Di sebuah perumahan, ketua RT kesulitan mengajak warga untuk kerja bakti. Banyak warga bekerja dari pagi sampai malam, sebagian lebih suka mengurus urusan masing-masing, dan interaksi antartetangga semakin jarang. Kendala utama dalam menggerakkan gotong royong pada kasus tersebut adalah ...",["Meningkatnya sikap individualisme dan kesibukan masyarakat","Kuatnya rasa kekeluargaan antarwarga","Banyaknya warga yang ingin terlibat dalam kegiatan sosial","Mudahnya komunikasi antarwarga","Adanya musyawarah dalam mengambil keputusan"],0],
+["q","Dalam kehidupan masyarakat yang memiliki latar belakang budaya, agama, dan ekonomi berbeda, gotong royong memiliki peran penting untuk menjaga persatuan. Warga dari berbagai latar belakang bahu-membahu membersihkan lingkungan tanpa membeda-bedakan. Hal tersebut menunjukkan bahwa gotong royong merupakan bentuk penerapan nilai ...",["Individualisme dalam kehidupan sosial","Persaingan untuk mencapai kepentingan bersama","Kebebasan individu tanpa batas","Toleransi dan solidaritas dalam keberagaman","Kepentingan kelompok tertentu di atas kepentingan umum"],3],
+["q","Sekelompok petani kecil di sebuah desa sepakat mendirikan usaha bersama. Modal dikumpulkan dari anggota, keuntungan dibagi sesuai kontribusi, dan keputusan penting diambil lewat rapat anggota. Bentuk usaha tersebut paling mencerminkan semangat gotong royong di bidang ekonomi, yaitu ...",["Monopoli usaha oleh pemilik modal besar","Persaingan usaha tanpa aturan","Usaha perseorangan yang menutup diri dari kerja sama","Perdagangan yang hanya mengejar keuntungan pribadi","Koperasi yang berasaskan kekeluargaan"],4],
+["q","Dalam sebuah diskusi kelas, guru meminta siswa menyebutkan ciri-ciri kegiatan gotong royong yang sejati. Siswa menjawab bahwa kegiatan tersebut dilakukan bersama-sama, dilandasi rasa kekeluargaan, dilakukan tanpa paksaan, dan bertujuan untuk kebaikan bersama. Berdasarkan jawaban tersebut, unsur-unsur gotong royong adalah ...",["Persaingan, individualisme, dan keuntungan pribadi","Paksaan, imbalan, dan kepentingan golongan","Kerja sama, kekeluargaan, kesukarelaan, dan kebersamaan","Kebebasan mutlak, kemandirian, dan persaingan","Perintah, hierarki, dan kewajiban tertulis"],2],
+["q","Rina rajin ikut kerja bakti di lingkungannya. Namun, ia selalu memastikan banyak orang melihatnya bekerja dan sering meminta dipuji oleh tetangga. Jika ia tidak dipuji, ia merasa kecewa dan enggan ikut lagi. Nilai gotong royong yang belum sepenuhnya diterapkan Rina adalah ...",["Kedisiplinan dan ketegasan","Keberanian dan kemandirian","Keikhlasan dan kepedulian sosial","Kreativitas dan tanggung jawab pribadi","Kebebasan dan persaingan"],2],
+["q","Dalam pelajaran PPKn, guru menjelaskan bahwa antropolog Koentjaraningrat membagi gotong royong dalam masyarakat Indonesia menjadi dua jenis berdasarkan sifat kegiatannya: yang pertama dilakukan untuk membantu sesama warga yang sedang membutuhkan, dan yang kedua dilakukan untuk kepentingan umum. Dua jenis gotong royong tersebut adalah ...",["Gotong royong politik dan gotong royong ekonomi","Gotong royong formal dan gotong royong informal","Gotong royong tolong-menolong dan gotong royong kerja bakti","Gotong royong keluarga dan gotong royong pemerintah","Gotong royong sukarela dan gotong royong paksaan"],2],
+["q","Warga sebuah lingkungan berhasil mengumpulkan dana bantuan untuk korban bencana. Namun, muncul perbedaan pendapat: sebagian ingin dana dipakai untuk sembako, sebagian lain untuk perbaikan rumah. Tindakan yang paling mencerminkan semangat gotong royong sekaligus demokrasi Pancasila adalah ...",["Menyerahkan seluruh keputusan kepada orang yang paling kaya","Mengikuti pendapat ketua tanpa mempertimbangkan pendapat lain","Membagi dana secara merata tanpa mempertimbangkan kebutuhan","Mengadakan musyawarah untuk mencapai keputusan yang mengutamakan kepentingan bersama","Menghentikan kegiatan agar tidak terjadi perdebatan"],3],
+["q","Saat warga kompleks mengadakan kerja bakti, Pak Andi tidak bisa hadir karena harus bekerja di luar kota. Sebagian warga mulai menggerutu dan menganggapnya tidak peduli. Sikap yang paling tepat untuk menjaga semangat gotong royong dalam situasi tersebut adalah ...",["Menganggap warga tersebut tidak peduli terhadap lingkungan","Mengeluarkan mereka dari kegiatan masyarakat","Membebankan seluruh pekerjaan kepada warga yang hadir","Menghentikan kegiatan sampai semua warga dapat hadir","Memberikan kesempatan untuk berkontribusi melalui cara lain sesuai kemampuan"],4],
+["q","Di era digital, warga sebuah desa jarang bertemu langsung karena kesibukan masing-masing, tetapi hampir semuanya aktif menggunakan ponsel. Ketika ada tetangga yang tertimpa musibah, bentuk penerapan gotong royong yang paling sesuai dengan perkembangan tersebut adalah ...",["Menggunakan media sosial hanya untuk kepentingan pribadi","Mengurangi interaksi dengan masyarakat sekitar","Menggantikan seluruh kegiatan sosial dengan hiburan digital","Membuat kelompok digital untuk mengoordinasikan bantuan dan kegiatan sosial","Membatasi informasi kegiatan masyarakat kepada kelompok tertentu"],3],
+["q","Bayangkan sebuah lingkungan yang warganya sudah tidak mau lagi saling membantu. Selokan tersumbat dibiarkan, tetangga yang sakit tidak dijenguk, dan setiap warga hanya sibuk dengan urusannya sendiri. Apabila gotong royong tidak lagi dilakukan, akibat yang paling mungkin terjadi adalah ...",["Pekerjaan semakin cepat diselesaikan oleh masing-masing individu","Rasa kepedulian antarwarga semakin meningkat","Masyarakat semakin mudah bekerja sama","Hubungan sosial antarwarga menjadi semakin erat","Melemahnya solidaritas, tumbuhnya sikap acuh, dan retaknya persatuan"],4],
+["q","Keluarga Bu Sari akan mengadakan hajatan pernikahan anaknya. Sejak seminggu sebelumnya, para tetangga datang secara sukarela untuk memasak, menata tenda, dan membersihkan halaman tanpa meminta bayaran. Menurut Koentjaraningrat, kegiatan tersebut termasuk gotong royong jenis ...",["Kerja bakti","Kewajiban pemerintah","Kerja sama bisnis","Persaingan sosial","Tolong-menolong"],4],
+["q","Dalam kerja bakti membangun pos ronda, ada warga yang ahli bangunan, ada yang menyiapkan konsumsi, ada yang mengangkut material, dan ada yang mendanai bahan. Pembagian tugas sesuai kemampuan masing-masing tersebut dianggap lebih efektif karena ...",["Hanya orang yang ahli yang boleh bekerja","Pekerjaan dapat diselesaikan sesuai kemampuan sehingga lebih terarah dan efisien","Dapat menghilangkan tanggung jawab individu","Setiap orang tidak perlu memahami tujuan kegiatan","Dapat mengurangi jumlah orang yang terlibat"],1],
+["q","Sebuah RW rutin mengadakan kerja bakti dan ronda bersama selama bertahun-tahun. Warganya saling kenal, saling percaya, dan selalu siap membantu ketika ada yang kesulitan. Dampak jangka panjang yang paling tepat dari kebiasaan gotong royong tersebut adalah ...",["Meningkatnya ketergantungan masyarakat terhadap orang lain","Berkurangnya kebebasan masyarakat dalam mengambil keputusan","Munculnya persaingan antarkelompok masyarakat","Terbentuknya solidaritas, kepercayaan, dan rasa tanggung jawab sosial","Terbentuknya kelompok sosial berdasarkan status ekonomi"],3],
+["q","Di suatu desa, kegiatan gotong royong hanya diikuti oleh warga yang memiliki kedudukan sosial tinggi, sedangkan warga lainnya tidak diajak berdiskusi maupun dilibatkan dalam pengambilan keputusan. Kondisi tersebut bertentangan dengan prinsip gotong royong karena ...",["Gotong royong seharusnya dilakukan oleh pemerintah saja","Gotong royong mengutamakan kesetaraan, partisipasi, dan kepentingan bersama","Setiap warga harus memiliki pekerjaan yang sama","Masyarakat tidak diperbolehkan memiliki perbedaan pendapat","Keputusan harus selalu ditentukan oleh warga terbanyak"],1],
+["q","Setelah banjir besar melanda sebuah desa, warga sekitar langsung membuka dapur umum, mengumpulkan pakaian layak pakai, dan menyediakan tempat berlindung bagi para korban tanpa menunggu perintah siapa pun. Tindakan tersebut mencerminkan nilai ...",["Kebebasan individu dan persaingan","Kepentingan kelompok tertentu","Ketergantungan pada pemerintah","Pencarian popularitas di masyarakat","Kepedulian dan solidaritas sosial"],4],
+["q","Gotong royong sering dianggap sebagai identitas bangsa Indonesia. Namun, jika masyarakat mulai lebih mengutamakan kepentingan pribadi dan mengabaikan kepentingan bersama, dampak paling mendasar terhadap kehidupan berbangsa adalah ...",["Meningkatnya kemandirian masyarakat dalam segala bidang","Terbentuknya persaingan sehat yang memperkuat persatuan","Meningkatnya kebebasan individu tanpa memengaruhi masyarakat","Melemahnya solidaritas sosial dan berkurangnya rasa persatuan nasional","Bertambahnya kesempatan masyarakat untuk bekerja sendiri"],3],
+["q","Di tengah arus globalisasi, budaya asing masuk dengan cepat dan banyak anak muda mulai bersikap individualis serta lebih suka menghabiskan waktu sendiri. Meskipun begitu, gotong royong tetap perlu dilestarikan karena ...",["Gotong royong hanya cocok diterapkan di pedesaan","Globalisasi tidak berpengaruh pada kehidupan sosial","Gotong royong menghambat kemajuan teknologi","Setiap orang harus selalu bekerja sendiri","Gotong royong merupakan jati diri bangsa dan perekat persatuan yang menguatkan kehidupan bersama"],4],
+["q","Pak Lurah mengatakan bahwa gotong royong hanya akan berjalan baik jika setiap warga sadar akan perannya dan tidak menyerahkan semuanya kepada pemimpin. Pernyataan yang paling tepat tentang hubungan antara gotong royong dan tanggung jawab sosial adalah ...",["Gotong royong merupakan kewajiban yang hanya berlaku bagi masyarakat kurang mampu","Tanggung jawab sosial dapat diserahkan sepenuhnya kepada pemimpin masyarakat","Gotong royong hanya dapat berjalan apabila seluruh individu memiliki kepentingan yang sama","Gotong royong tidak memerlukan kesadaran individu selama pekerjaan dapat diselesaikan oleh sebagian masyarakat","Setiap individu memiliki peran dan tanggung jawab untuk berkontribusi sesuai kemampuan demi kepentingan bersama"],4]];
+const CH=[["🐶","Sebutkan nama 5 hewan dalam waktu 5 detik!",5],["👶","Nyanyi lagu bebas, tapi pakai suara bayi.",15],["😡","Tirukan gaya orang lagi marah tanpa mengeluarkan suara.",10],["💃","Joget bebas selama 15 detik!",15],["🍜","Sebutkan 5 nama makanan yang berawalan huruf S!",10],["🗣️","Bicara selama 20 detik tanpa mengucapkan kata “aku/saya/me/I”.",20],["🚽","Peragakan orang yang lagi kebelet ke toilet.",10],["😂","Tertawa tanpa alasan selama 10 detik!",10],["🔤","Sebutkan alfabet dari Z sampai A secepat mungkin.",15],["📜","Pilih satu teman, lalu adu pantun dadakan!",30]];
+const ZK=[["😭","ZONKKK 😭","Yahh, keberuntungan lagi cuti."],["🤡","HAHAHA KASIANNN","Box ini isinya cuma harapan palsu (zonk)."],["🍀","BETTER LUCK NEXT TIME!","Gak ada apa-apa di sini WKWKWK (zonk)."],["🎁","SURPRISEEEE!","Eh boong, ternyata ZONK!"],["💀","MISSION FAILED 💀","Silakan menerima kenyataan (zonk)."]];
+const QE=["🤲","🇮🇩","🏘️","🧹","🌍","🏪","📚","🗳️","🧑‍🏫","💪","📱","🌊","🍚","🏠","🧠","🕊️","🎓","🏗️","🤗","🌾"];
+const QT=45,D=[];let qi=0,ci=0,zi=0;
+for(let g=0;g<5;g++)for(const t of"QCQZQCQ")D.push(t=="Q"?[...QS[qi],QE[qi++]]:t=="C"?["c",...CH[ci++]]:["z",...ZK[zi++]]);
+let st,score,tm,last,muted=false,AC;
+function tone(f,d,ty="sine",at=0,v=.15,f2){if(muted)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+at;o.type=ty;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.linearRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d)}catch(e){}}
+const sfx={open:()=>{tone(500,.1,"square",0,.08);tone(750,.15,"square",.08,.08)},
+ok:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.2,"triangle",i*.1)),
+no:()=>tone(180,.5,"sawtooth",0,.12,90),
+tick:()=>tone(1000,.06,"square",0,.06),
+go:()=>{tone(440,.12,"triangle");tone(880,.2,"triangle",.12)},
+up:()=>{tone(300,.2,"square",0,.1);tone(300,.4,"square",.25,.1)},
+zonk:()=>{[[392,.3],[370,.3],[349,.3]].forEach((a,i)=>tone(a[0],a[1],"sawtooth",i*.32,.1));tone(330,1,"sawtooth",.96,.1,200)}};
+function init(){st=Array(35).fill(null);score=0;$('#fin').style.display="none";draw()}
+function draw(){const G=$('#grid');G.innerHTML='';
+ D.forEach((d,i)=>{const b=document.createElement('button'),s=st[i];b.className='box'+(s?' done '+s:'');
+  b.style.animationDelay=i*15+'ms';
+  if(s)b.textContent=s=='ok'?'✅':s=='no'?'❌':d[1];else{b.dataset.c=i%5;b.textContent=i+1}
+  b.onclick=()=>{if(!s)open(i)};G.appendChild(b)});
+ $('#sc').textContent=score;const n=st.filter(Boolean).length;$('#op').textContent=n;
+ if(n==35){const f=$('#fin');f.style.display="block";f.textContent="🏆 Semua box sudah terbuka! Skor akhir: "+score}}
+function close(){clearInterval(tm);$('#ov').classList.remove('on');draw()}
+function ring(sec){return`<div class="ring"><svg viewBox="0 0 72 72"><circle cx="36" cy="36" r="30" fill="none" stroke="var(--bd)" stroke-width="7"/><circle id="rg" cx="36" cy="36" r="30" fill="none" stroke="var(--ac)" stroke-width="7" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="0" transform="rotate(-90 36 36)"/></svg><b id="tn">${sec}</b></div>`}
+function timer(sec,end){clearInterval(tm);last=-1;const t0=Date.now();
+ tm=setInterval(()=>{const l=Math.max(0,sec-(Date.now()-t0)/1000),c=Math.ceil(l);
+  $('#rg').style.strokeDashoffset=188.5*(1-l/sec);$('#tn').textContent=c;$('#rg').style.stroke=l<=5?'var(--no)':'var(--ac)';
+  if(c!=last&&c<=5&&c>0)sfx.tick();last=c;if(l<=0){clearInterval(tm);end()}},100)}
+function open(i){sfx.open();const d=D[i],m=$('#md');$('#ov').classList.add('on');m.className='';
+ const T={q:['Box '+(i+1)+' · Soal','var(--ac)'],c:['🎭 Box '+(i+1)+' · Challenge','var(--ch)'],z:['💀 Box '+(i+1)+' · ZONK','var(--zk)']}[d[0]];
+ const head=sec=>`<div class="top"><span class="tag" style="background:${T[1]}">${T[0]}</span>${sec?ring(sec):''}</div>`;
+ if(d[0]=='q'){
+  m.innerHTML=head(QT)+`<div class="qemo">${d[4]}</div><p class="q">${d[1]}</p><div id="os"></div><div id="ft"></div>`;
+  const fin=(k,msg)=>{clearInterval(tm);const right=k==d[3];
+   m.querySelectorAll('.opt').forEach((x,j)=>{x.disabled=true;if(j==d[3])x.classList.add('ok')});
+   if(k>=0&&!right)m.querySelectorAll('.opt')[k].classList.add('no');
+   if(right){score+=10;sfx.ok()}else k<0?sfx.up():sfx.no();
+   st[i]=right?'ok':'no';
+   $('#ft').innerHTML=`<p class="fb">${msg||(right?'🎉 Benar! +10 poin':'😅 Belum tepat. Jawaban benar ditandai hijau.')}</p><button id="x">Tutup</button>`;$('#x').onclick=close};
+  d[2].forEach((o,k)=>{const b=document.createElement('button');b.className='opt';b.textContent=String.fromCharCode(65+k)+'. '+o;b.onclick=()=>fin(k);$('#os').appendChild(b)});
+  timer(QT,()=>fin(-1,'⏰ Waktu habis! Jawaban benar ditandai hijau.'));
+ }else if(d[0]=='c'){
+  m.innerHTML=head(d[3])+`<div class="hero"><span class="emo">${d[1]}</span><p class="big">${d[2]}</p><div class="row" id="ft"><button id="go">▶ Mulai (${d[3]} detik)</button></div></div>`;
+  const done=t=>{clearInterval(tm);st[i]='ch';if(t)sfx.up();else sfx.ok();$('#ft').innerHTML=`<p class="fb" style="width:100%">${t?'⏰ Waktu habis! Mantap!':'🎉 Keren, selesai!'}</p><button id="x">Tutup</button>`;$('#x').onclick=close};
+  $('#go').onclick=()=>{sfx.go();$('#ft').innerHTML='<button id="dn" class="sec">✔ Selesai lebih cepat</button>';$('#dn').onclick=()=>done(0);timer(d[3],()=>done(1))};
+ }else{
+  st[i]='zk';sfx.zonk();m.classList.add('zk');
+  m.innerHTML=head(0)+`<div class="hero zk"><span class="emo">${d[1]}</span><p class="zt">${d[2]}</p><p class="big">${d[3]}</p><button id="x">Yah… oke deh 😭</button></div>`;$('#x').onclick=close;
+ }}
+$('#mu').onclick=e=>{muted=!muted;e.target.textContent=muted?'🔇 Mati':'🔊 Suara'};
+$('#rs').onclick=()=>{if(confirm('Ulang dari awal?'))init()};
+init();
+</script></body></html>
